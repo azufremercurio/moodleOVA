@@ -48,6 +48,17 @@
                         </div>
                     </div>
                 </div>
+                
+                <div class="row contentCenter">
+                    <div class="col-sm-6">
+                        <h4>Actividad de aprendizaje</h4>
+                    </div>
+                </div>
+                <div class="row contentCenter">
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-danger" >Actividad de apendizaje</button>
+                    </div>
+                </div>
             </div>
         </section>
         <footer>
