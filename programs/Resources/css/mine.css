@@ -1,4 +1,27 @@
 
+
+.content-circle{
+    height: 400px;
+}
+/* tablets horizontal y escritorios normales */
+@media only screen and (max-width: 1024px) {
+    .content-circle{
+        height: 220px;
+    }
+}
+/* moviles en horizontal y tablets vertical */
+@media only screen and (max-width: 768px) {
+    .content-circle{
+        height: 180px;
+    }
+}
+/* moviles en vertical */
+@media only screen and (max-width: 480px) {
+    .content-circle{
+        height: 115px;
+    }
+}
+
 .bg-theme-1{
     background-color: #ffbd33;
 }
