@@ -1,8 +1,9 @@
 
 
 .content-circle{
-    height: 400px;
+    height: 300px;
 }
+
 /* tablets horizontal y escritorios normales */
 @media only screen and (max-width: 1024px) {
     .content-circle{
@@ -14,11 +15,12 @@
     .content-circle{
         height: 180px;
     }
+    
 }
 /* moviles en vertical */
 @media only screen and (max-width: 480px) {
     .content-circle{
-        height: 115px;
+        height: 75px;
     }
 }
 
@@ -30,4 +32,8 @@
 }
 .bg-theme-3{
     background-color: #95a8ff;
+}
+.container{
+    position: absolute;
+    bottom: 0;
 }
