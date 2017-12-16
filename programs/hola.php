@@ -27,7 +27,7 @@
             .content-circle{
                 position: relative;
                 overflow: hidden;
-                /*background-color: #ccc;*/
+                background-color: #555;
             }
             .contentImg{
                 position: absolute;
@@ -74,38 +74,91 @@
                 width: 100%;
                 height: 100%;
             }
+            .cursorClick{
+                cursor: pointer;
+            }
+            #btnPrev,#btnNext{
+                position: absolute;
+                height: 100%;
+                width: 12%;
+                top: 0;
+                z-index: 1;
+            }
+            #btnPrev:hover,#btnNext:hover{
+                background-color: #eee;
+                opacity: 0.3;
+            }
+            #btnPrev img,#btnNext img{
+                position: absolute;
+                width: 80%;
+                opacity: 0.3;
+                top: 30%;
+            }
+            #btnPrev{
+                left: 1%;
+            }
+            #btnNext{
+                right: 1%;
+            }
+            .centerVideo{
+                margin: 2px 2%;
+                display: block;
+                width: 96%;
+            }
+            .sky{
+                background-color: #555;
+            }
+            .content-head{
+                position: absolute;
+                height: 50%;
+            }
         </style>
 
     </head>
 
     <body>
         <div class="col-sm-12">
-            <button id="btnPrev">Prev</button>
-            <button id="btnNext">Next</button>
-            <div class="content-circle">
-                <div class="imgPlane">
-                    <img src="Resources/multimedia/astronauta.gif" alt="plane">
+            <div class="col-sm-12 sky">
+
+                <div class="content-circle">
+                    <div id="btnPrev" class="cursorClick">
+                        <img src="Resources/multimedia/btnBack.png" alt="Atras">
+                    </div>
+                    <div id="btnNext" class="cursorClick">
+                        <img src="Resources/multimedia/btnNext.png" alt="Next">
+                    </div>
+                    <div class="imgPlane">
+                        <img src="Resources/multimedia/astronauta.gif" alt="plane">
+                    </div>
+
+                    <div id="div">
+                        <img src="Resources/multimedia/circulo.png">
+                    </div>
+
+                    <div class="concept cursorClick" id="concept1" concept="1" data-toggle="modal" data-target="#myModal">
+                        <img src="Resources/multimedia/satelite.gif">
+                    </div>
+                    <div class="concept cursorClick hide" id="concept2" concept="2" data-toggle="modal" data-target="#myModal">
+                        <img src="Resources/multimedia/radio.gif">
+                    </div>
+                    <div class="concept cursorClick hide" id="concept3" concept="3" data-toggle="modal" data-target="#myModal">
+                        <img src="Resources/multimedia/televisor.gif">
+                    </div>
+                    <div class="concept cursorClick hide" id="concept4" concept="4" data-toggle="modal" data-target="#myModal">
+                        <img src="Resources/multimedia/engranaje.gif">
+                    </div>
                 </div>
 
-                <div id="div">
-                    <img src="Resources/multimedia/circulo.png">
-                </div>
-
-                <div class="concept" id="concept1" concept="1">
-                    <img src="Resources/multimedia/satelite.gif">
-                </div>
-                <div class="concept hide" id="concept2" concept="2">
-                    <img src="Resources/multimedia/radio.gif">
-                </div>
-                <div class="concept hide" id="concept3" concept="3">
-                    <img src="Resources/multimedia/televisor.gif">
-                </div>
-                <div class="concept hide" id="concept4" concept="4">
-                    <img src="Resources/multimedia/engranaje.gif">
-                </div>
             </div>
         </div>
 
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="col-sm-12">
+                <div class="modal-content">
+                    <video class="centerVideo" src="Resources/multimedia/SeguridadInformatica.mp4" controls=""></video>
+                </div>
+            </div>
+        </div>
 
         <script src="Resources/js/jquery-3.2.1.min.js"></script>
         <script src="Resources/js/bootstrap.min.js"></script>
