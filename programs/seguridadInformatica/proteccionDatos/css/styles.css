@@ -1,8 +1,104 @@
 
-.btn-theme{
-    background-color: #488aff;
+#div {
+    position:absolute; 
+    margin: auto 11%;
+    width: 80%;
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
+    border-radius: 50%;
 }
-.contentCenter{
-    display: flex;
-    justify-content: center;
+#div img{
+    width: 100%;
+    height: 100%;
+    transform: rotate(45deg);
+}
+.content-circle{
+    position: relative;
+    overflow: hidden;
+    background-color: #555;
+}
+.contentImg{
+    position: absolute;
+    z-index: 1;
+    top: 20%;
+    left: 30%;
+    background-color: #FFF;
+    width: 80px;
+}
+.tag{
+    padding: 20px;
+    text-align: center;
+    overflow: auto;
+    height: 30px;
+}
+.tag.xa{
+    background-color: #e46e00;
+}
+.tag.xb{
+    background-color: #624bff;
+}
+.tag.xc{
+    background-color: #62ff4b;
+}
+.concept{
+    position: absolute;
+    top: 45%;
+    left: 44%;
+    border-radius: 5px;
+    width: 13%;
+}
+.concept img{
+    width: 100%;
+}
+
+.imgPlane{
+    position: absolute;
+    left: 30%;
+    z-index: 1;
+    top: 0;
+    width: 10%;
+}
+.imgPlane img{
+    width: 100%;
+    height: 100%;
+}
+.cursorClick{
+    cursor: pointer;
+}
+#btnPrev,#btnNext{
+    position: absolute;
+    height: 100%;
+    width: 12%;
+    top: 0;
+    z-index: 1;
+}
+#btnPrev:hover,#btnNext:hover{
+    background-color: #eee;
+    opacity: 0.3;
+}
+#btnPrev img,#btnNext img{
+    position: absolute;
+    width: 80%;
+    opacity: 0.3;
+    top: 30%;
+}
+#btnPrev{
+    left: 1%;
+}
+#btnNext{
+    right: 1%;
+}
+.centerVideo{
+    margin: 2px 2%;
+    display: block;
+    width: 96%;
+}
+.sky{
+    background-color: #555;
+}
+.content-head{
+    position: absolute;
+    height: 50%;
 }

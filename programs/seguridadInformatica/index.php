@@ -3,6 +3,8 @@
  * Listar las unidades del curso
  * Las unidades se desbloquean segun el avance del usuario en las actividades
  */
+
+require_once '../../config.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -24,17 +26,19 @@
         <section>
             <div class="container">
                 <h1>Bienvenido al curso de Seguridad Informática</h1>
-                <div class="col-sm-12">Estas son los Objetos Virtuales de Apendizaje de debes aprobar</div>
-                <div class="col-xs-12 col-sm-4 bg-theme-1"><a href="proteccionDatos/">Protección de datos</a></div>
-                <div class="col-xs-12 col-sm-4 bg-theme-2"><a href="#">Encriptación de datos</a></div>
-                <div class="col-xs-12 col-sm-4 bg-theme-3"><a href="#">Analisis de vulnerabilidad</a></div>
-
+                <div class="row">
+                    <div class="col-sm-12">Estas son los Objetos Virtuales de Apendizaje de debes aprobar</div>
+                </div>
+                
+                <div class="col-xs-12 col-sm-3 tagPost"><a href="proteccionDatos/?id=1">Protección de datos</a></div>
+                <div class="col-xs-12 col-sm-3 tagPost"><a href="proteccionDatos/?id=2">Encriptación de datos</a></div>
+                <div class="col-xs-12 col-sm-3 tagPost"><a href="proteccionDatos/?id=3">Analisis de vulnerabilidad</a></div>
             </div>
         </section>
         <footer>
 
         </footer>
-        
+
         <script src="../Resources/js/jquery-3.2.1.min.js"></script>
         <script src="../Resources/js/bootstrap.min.js"></script>
         <script src="../Resources/js/jquery-ui.min.js"></script>

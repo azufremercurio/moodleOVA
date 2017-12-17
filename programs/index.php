@@ -2,6 +2,12 @@
 /*
  * Listar los cursos del usuario
  */
+
+require_once 'config.php';
+
+/* obtener el array de los cursos */
+$enrolCourses = enrol_get_all_users_courses($USER->id);
+
 ?>
 
 <!DOCTYPE html>
@@ -14,6 +20,7 @@
         <!-- inclusion de las hojas de estilo -->
         <link href="Resources/css/bootstrap.min.css" rel="stylesheet">
         <link href="Resources/css/jquery-ui.min.css" rel="stylesheet">
+        <link href="Resources/css/mine.css" rel="stylesheet">
 
     </head>
     <body>
@@ -23,7 +30,18 @@
         <section>
             <div class="container">
                 <h1>Estos son tus Cursos disponibles</h1>
-                <a href="seguridadInformatica/"><img src="Resources/multimedia/safe.jpg" alt="" width="50"> Seguridad Informatica</a>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <?php foreach ($enrolCourses as $course) { ?>
+                            <div class="col-sx-12 col-sm-4 tagPost">
+                                <a href="seguridadInformatica/">
+                                    <img src="Resources/multimedia/safe.jpg" alt="" width="50"> <?php echo $course->fullname; ?></a>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+
             </div>
         </section>
         <footer>
