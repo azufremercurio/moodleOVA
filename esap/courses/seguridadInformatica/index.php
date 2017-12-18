@@ -14,9 +14,9 @@ require_once '../../config.php';
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- inclusion de las hojas de estilo -->
-        <link rel="stylesheet" href="../Resources/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../Resources/css/mine.css">
-        <link rel="stylesheet" href="../Resources/css/jquery-ui.min.css">
+        <link rel="stylesheet" href="../../Resources/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../Resources/css/mine.css">
+        <link rel="stylesheet" href="../../Resources/css/jquery-ui.min.css">
 
     </head>
     <body>
@@ -39,8 +39,8 @@ require_once '../../config.php';
 
         </footer>
 
-        <script src="../Resources/js/jquery-3.2.1.min.js"></script>
-        <script src="../Resources/js/bootstrap.min.js"></script>
-        <script src="../Resources/js/jquery-ui.min.js"></script>
+        <script src="../../Resources/js/jquery-3.2.1.min.js"></script>
+        <script src="../../Resources/js/bootstrap.min.js"></script>
+        <script src="../../Resources/js/jquery-ui.min.js"></script>
     </body>
 </html>

@@ -1,4 +1,4 @@
-<?php require_once '../../config.php'; ?>
+<?php require_once '../../../config.php'; ?>
 <!-- Recurso correspondiente a la Proteccion de Datos -->
 
 <div class="col-sm-12">

@@ -21,14 +21,15 @@ if (!isloggedin()) {
  * @return string
  */
 function getUrlPath() {
-    $httpRefer = $_SERVER['HTTP_REFERER'];
-    $urlArr = explode('/programs', $httpRefer);
+    $actualLink = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    
+    $urlArr = explode('/esap', $actualLink);
     $urlNeed = $urlArr[0];
 
     return $urlNeed;
 }
 
 $urlPath = getUrlPath();
-$programsRoot = "$urlPath/programs";
-$resourcesRoot = "$urlPath/programs/Resources";
+$programsRoot = "$urlPath/esap/courses";
+$resourcesRoot = "$urlPath/esap/Resources";
 
