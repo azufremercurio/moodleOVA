@@ -15,6 +15,10 @@ if (!isloggedin()) {
     return;
 }
 
+function interpretacionUrl() {
+    
+}
+
 /**
  * obtener la ruta del dominio hasta al carpeta programs
  * con el fin de obtener los recursos multimedia

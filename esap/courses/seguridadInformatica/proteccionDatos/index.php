@@ -20,7 +20,7 @@ if (empty($id)) {
         <title>Pagina nueva 2</title>
         <link href="<?php echo $resourcesRoot; ?>/css/bootstrap.min.css" rel="stylesheet">
         <link href="<?php echo $resourcesRoot; ?>/css/mine.css" rel="stylesheet">
-        <link href="css/styles.css" rel="stylesheet">
+        <link href="/esap/courses/seguridadInformatica/proteccionDatos/css/styles.css" rel="stylesheet">
     </head>
 
     <body>
@@ -28,11 +28,11 @@ if (empty($id)) {
 
         <script src="<?php echo $resourcesRoot; ?>/js/jquery-3.2.1.min.js"></script>
         <script src="<?php echo $resourcesRoot; ?>/js/bootstrap.min.js"></script>
-        <script src="js/vista.js"></script>
+        <script src="/esap/courses/seguridadInformatica/proteccionDatos/js/vista.js"></script>
 
         <script language=javascript>
             var urls = {
-                unityid: '<?php echo "unidad$id.php"; ?>'
+                unityid: '<?php echo "/esap/courses/seguridadInformatica/proteccionDatos/unidad$id.php"; ?>'
             }
         </script>
 
