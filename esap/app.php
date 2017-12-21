@@ -14,10 +14,8 @@ if(count($appUrl) == 1) {
 
 $callResource = $appUrl[1];
 
-$arrRoutings = [
-    '/test' => ['Curso', 'index'],
-    '/testx' => ['Curso', 'default'],
-];
+$routingContent = file_get_contents('routing.json');
+$arrRoutings = json_decode($routingContent, true);
 
 if(!array_key_exists($callResource, $arrRoutings)){
     die("Ruta no encontrada");
@@ -26,8 +24,8 @@ if(!array_key_exists($callResource, $arrRoutings)){
 
 $arrPath = $arrRoutings[$callResource];
 
-$class = $arrPath[0];
-$action = $arrPath[1];
+$class = $arrPath['class'];
+$action = $arrPath['action'];
 
 require_once "Controller/$class.php";
 $objClass = new $class;

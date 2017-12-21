@@ -1,0 +1,4 @@
+{
+    "/test":{"class": "Curso", "action": "index"},
+    "/testx":{"class": "Curso", "action": "default"}
+}
