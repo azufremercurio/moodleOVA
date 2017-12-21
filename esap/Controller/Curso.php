@@ -1,7 +1,5 @@
 <?php
 
-use DateTime as xxx;
-
 /**
  * Description of Test
  *
@@ -20,8 +18,8 @@ class Curso {
     }
 
     public function defaultAction() {
-        print_r(new xxx('now'));die;
-        
+
+
         $this->getUserEnrolment();
         return "hola curso";
     }
@@ -47,7 +45,7 @@ class Curso {
         $record = new stdClass();
         /* obtener el id del usuario para almacenarlo en la tabla de recursos vistos */
         $record->user_enrolments_id = $this->user->id;
-        $record->resource_id = $request['videoId'];
+        $record->resource_id = $request['recursoId'];
         $id = $this->db->insert_record('esp_user_concept_resource', $record, true);
 
         return json_encode(['msn' => '__OK__', 'return' => 'registro exitoso', 'data' => ['id' => $id]]);
@@ -57,5 +55,27 @@ class Curso {
         $userEnrol = $this->db->get_records('user_enrolments', ['userid' => $this->user->id]);
         return $userEnrol;
     }
-    
+
+    /**
+     * insterta un registro en la tabla Usersection 
+     * esta recive como parametro el id de la seccion
+     * @param type $request
+     * @return type
+     */
+    public function setUserSectionAction($request) {
+        /*preguntar si section id esta vacion */
+        if (!isset($request['sectionId']) || empty($request['sectionId'])) {
+            return json_encode(['msn' => '__KO__', 'return' => 'error', 'data' => ['id' => $id]]);
+        }
+
+        $record = new stdClass();
+        /* obtener el id del usuario para almacenarlo en la tabla de recursos vistos */
+        $record->user_enrolments_id = $this->user->id;
+        $record->resource_id = $request['sectionId'];
+
+        $id = $this->db->insert_record('esp_user_section', $record, true);
+
+        return json_encode(['msn' => '__OK__', 'return' => 'registro exitoso', 'data' => ['id' => $id]]);
+    }
+
 }
