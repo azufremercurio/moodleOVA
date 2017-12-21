@@ -3,13 +3,15 @@
  * Listar los cursos del usuario
  */
 
-require_once 'config.php';
-require_once 'Controller/controller.php';
+require_once '../config.php';
+require_once '../Controller/controller.php';
 
 //insertRegister();
 
 /* obtener el array de los cursos */
 $enrolCourses = enrol_get_all_users_courses($USER->id);
+
+
 
 ?>
 
@@ -20,10 +22,11 @@ $enrolCourses = enrol_get_all_users_courses($USER->id);
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
         <!-- inclusion de las hojas de estilo -->
-        <link href="Resources/css/bootstrap.min.css" rel="stylesheet">
-        <link href="Resources/css/jquery-ui.min.css" rel="stylesheet">
-        <link href="Resources/css/mine.css" rel="stylesheet">
+        <link href="../Resources/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../Resources/css/jquery-ui.min.css" rel="stylesheet">
+        <link href="../Resources/css/mine.css" rel="stylesheet">
 
     </head>
     <body>
@@ -39,7 +42,7 @@ $enrolCourses = enrol_get_all_users_courses($USER->id);
                         <?php foreach ($enrolCourses as $course) { ?>
                             <div class="col-sx-12 col-sm-4 tagPost">
                                 <a href="seguridadInformatica/">
-                                    <img src="Resources/multimedia/safe.jpg" alt="" width="50"> <?php echo $course->fullname; ?></a>
+                                    <img src="../Resources/multimedia/safe.jpg" alt="" width="50"> <?php echo $course->fullname; ?></a>
                             </div>
                         <?php } ?>
                     </div>
@@ -50,8 +53,8 @@ $enrolCourses = enrol_get_all_users_courses($USER->id);
         <footer>
 
         </footer>
-        <script src="Resources/js/jquery-3.2.1.min.js"></script>
-        <script src="Resources/js/bootstrap.min.js"></script>
-        <script src="Resources/js/jquery-ui.min.js"></script>
+        <script src="../Resources/js/jquery-3.2.1.min.js"></script>
+        <script src="../Resources/js/bootstrap.min.js"></script>
+        <script src="../Resources/js/jquery-ui.min.js"></script>
     </body>
 </html>
