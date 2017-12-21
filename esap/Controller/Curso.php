@@ -37,12 +37,11 @@ class Curso {
         if(!isset($request['resourceId']) || empty($request['resourceId'])) {
             return json_encode(['msn' => '__KO__', 'return' => 'parametros incompletos']);
         }
-
         /* obtener el id del usuario para almacenarlo en la tabla de recursos vistos */
         $record = new stdClass();
         $enrol = $this->getUserEnrolment();
         $record->user_enrolments_id = $enrol->id;
-        $record->resource_id = $request['resourceId'];
+        $record->concept_resource_id = $request['resourceId'];
         $id = $this->db->insert_record('esp_user_concept_resource', $record, true);
 
         return json_encode(['msn' => '__OK__', 'return' => 'registro exitoso', 'data' => ['id' => $id]]);
@@ -73,7 +72,7 @@ class Curso {
         $record = new stdClass();
         $userEnrol=$this->getUserEnrolment();
         $record->user_enrolments_id = $userEnrol->id;
-        $record->resource_id = $request['sectionId'];
+        $record->course_sections_id = $request['sectionId'];
         $id = $this->db->insert_record('esp_user_section', $record, true);
         
         return json_encode(['msn' => '__OK__', 'return' => 'registro exitoso', 'data' => ['id' => $id]]);

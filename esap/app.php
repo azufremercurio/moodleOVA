@@ -6,10 +6,13 @@ require_login();
 
 $rqMethod = $_SERVER['REQUEST_METHOD'];
 $urlActual = $_SERVER['REQUEST_URI'];
-$appUrl = explode('app.php', $urlActual);
+
+$routGet = explode('?', $urlActual);
+
+$appUrl = explode('app.php', $routGet[0]);
 
 if (count($appUrl) == 1) {
-    return;
+    throw new Exception('There is not a valid route');
 }
 
 $callResource = $appUrl[1];
@@ -18,8 +21,7 @@ $routingContent = file_get_contents('routing.json');
 $arrRoutings = json_decode($routingContent, true);
 
 if (!array_key_exists($callResource, $arrRoutings)) {
-    die("Ruta no encontrada");
-    return;
+    throw new Exception('There is not a valid route');
 }
 
 $arrPath = $arrRoutings[$callResource];
@@ -37,12 +39,15 @@ $objClass = new $class;
 
 $data = [];
 /* validar si el prametro es POST para observar el contenido */
+if ($rqMethod != 'POST' && $method == 'POST') {
+    throw new Exception('Method type are different');
+}
+
 if ($rqMethod == 'POST' && $method == 'POST') {
     /* obtener todos los valores del post */
     $data = $_POST;
     if (empty($data)) {
-        echo "params are void";
-        return;
+        throw new Exception('Params are void');
     }
 } elseif ($rqMethod == 'GET') {
     $data = $_GET;
