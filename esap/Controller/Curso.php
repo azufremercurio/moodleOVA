@@ -18,7 +18,7 @@ class Curso {
     }
 
     public function defaultAction() {
-
+        
 
         $this->getUserEnrolment();
         return "hola curso";
@@ -46,6 +46,7 @@ class Curso {
         /* obtener el id del usuario para almacenarlo en la tabla de recursos vistos */
         $record->user_enrolments_id = $this->user->id;
         $record->resource_id = $request['recursoId'];
+        
         $id = $this->db->insert_record('esp_user_concept_resource', $record, true);
 
         return json_encode(['msn' => '__OK__', 'return' => 'registro exitoso', 'data' => ['id' => $id]]);
@@ -68,13 +69,13 @@ class Curso {
             return json_encode(['msn' => '__KO__', 'return' => 'error', 'data' => ['id' => $id]]);
         }
 
-        $record = new stdClass();
         /* obtener el id del usuario para almacenarlo en la tabla de recursos vistos */
-        $record->user_enrolments_id = $this->user->id;
+        $record = new stdClass();
+        $userEnrol=$this->getUserEnrolment();
+        $record->user_enrolments_id = $userEnrol->id;
         $record->resource_id = $request['sectionId'];
-
         $id = $this->db->insert_record('esp_user_section', $record, true);
-
+        
         return json_encode(['msn' => '__OK__', 'return' => 'registro exitoso', 'data' => ['id' => $id]]);
     }
 
