@@ -69,12 +69,13 @@ class Curso {
             return json_encode(['msn' => '__KO__', 'return' => 'error los parametros estan incompletos']);
         }
 
-        $record = new stdClass();
         /* obtener el id del usuario para almacenarlo en la tabla de recursos vistos */
-        $record->user_enrolments_id = $this->user->id;
+        $record = new stdClass();
+        $userEnrol=$this->getUserEnrolment();
+        $record->user_enrolments_id = $userEnrol->id;
         $record->resource_id = $request['sectionId'];
         $id = $this->db->insert_record('esp_user_section', $record, true);
-
+        
         return json_encode(['msn' => '__OK__', 'return' => 'registro exitoso', 'data' => ['id' => $id]]);
     }
 
