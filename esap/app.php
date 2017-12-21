@@ -16,7 +16,7 @@ $callResource = $appUrl[1];
 
 $arrRoutings = [
     '/test' => ['Curso', 'index'],
-    '/testx' => ['Curso', 'index2'],
+    '/testx' => ['Curso', 'default'],
 ];
 
 if(!array_key_exists($callResource, $arrRoutings)){
