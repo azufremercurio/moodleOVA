@@ -43,24 +43,7 @@ function fxloadm() {
     $(btn3).html('Analisis de vulnerabilidad').addClass('courseUnity btn btn-primary')
             .prop('href', '/esap/courses/seguridadInformatica/proteccionDatos/?id=3');
 
-    var fxLoadm = loadm;
-    var data = {
-        url: '/esap/app.php/test',
-        data: {id: 120, msn: "nelson"},
-        type: 'post',
-        dataType: 'html',
-        callback: function(result) {
-            console.log(333, result);
-        }
-    };
-
-    //fxLoadm.ajax(data);
-
     $('.buttons-content').append(btn1);
     $('.buttons-content').append(btn2);
     $('.buttons-content').append(btn3);
 }
-
-$(document).ready(function () {
-    fxloadm();
-});
