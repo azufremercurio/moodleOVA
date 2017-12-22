@@ -6,7 +6,7 @@
 /set/user/section:
     class: Curso
     action: setUserSection
-#    method: POST
+    method: POST
 
 /set/user/resource:
     class: Curso
