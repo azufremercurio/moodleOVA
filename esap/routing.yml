@@ -1,0 +1,14 @@
+# invocacion al action default para mostar datos de ejemplo
+/dev:
+    class: Curso
+    action: default
+
+/set/user/section:
+    class: Curso
+    action: setUserSection
+    method: POST
+
+/set/user/resource:
+    class: Curso
+    action: setUserResource
+    method: POST

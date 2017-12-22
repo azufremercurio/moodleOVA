@@ -1,6 +1,0 @@
-{
-    "/test":{"class": "Curso", "action": "index"},
-    "/testx":{"class": "Curso", "action": "default"},
-    "/set/user/section":{"class": "Curso", "action": "setUserSection", "method":"POST"},
-    "/set/user/resource":{"class": "Curso", "action": "setUserResource", "method":"POST"}
-}
