@@ -46,7 +46,7 @@ class Curso {
      * @return stdClass tipo userEnrollment
      */
     private function getUserEnrolment() {
-        $userEnrol = $this->db->get_records('user_enrolments', ['userid' => $this->user->id]);
+        $userEnrol = $this->db->get_record('user_enrolments', ['userid' => $this->user->id]);
         return $userEnrol;
     }
 
@@ -110,14 +110,6 @@ class Curso {
         return json_encode(['msn' => '__OK__', 'return' => 'registro exitoso', 'data' => ['id' => $id]]);
     }
 
-    private function getYmlCourse($nameCourse) {
-        $nameAux = str_replace(' ', '', $nameCourse);
-        $name = mb_strtolower($nameAux, 'UTF-8');
-        $chars = ['á' => 'a', 'é' => 'e', 'í' => 'i', 'ó' => 'o', 'ú' => 'u', 'ü' => 'u', 'ñ' => 'n'];
-        $newName = strtr($name, $chars);
-        return $newName;
-    }
-
     private function issetRegist($request) {
         $regist = null;
         if (array_key_exists('sectionId', $request)) {
@@ -136,25 +128,60 @@ class Curso {
         }
         return false;
     }
-    
-    public function getSectionsCoursesAction($request){
+
+    public function getSectionsCoursesAction($request) {
+        /* obtener el curso */
+        $course = $this->db->get_record('course', ['id' => $request['idCourse']]);
+        $urlCourse = $this->getYmlCourse($course->fullname);
         
-       $cursos  = $this->db->get_records('course_sections', ['course' => $request['idCourse']]);
-       
-       foreach ($cursos as $course) {
-           
-          print_r($course->section);
-       }
-//    print_r($cursos);
-       
-       $sql="";
-       
-       
-       
-        
-        return;
+        /* obtener los conceptos de las secciones y de ahi sacar el titulo de los botones */
+        $sql = "select ec.*, cs.id as sectionId, cs.section as sectionTheme FROM {course_sections} as cs "
+                . "join {esp_concept} as ec on ec.course_sections = cs.id "
+                . "where cs.course = ?";
+        $params = [$request['idCourse']];
+        $concepts = $this->db->get_records_sql($sql, $params);
+
+        /* obtener las secciones vistas por el usuario */
+        $sql = "select us.course_sections_id as sectionId FROM {esp_user_section} as us "
+                . "where us.user_enrolments_id = ?";
+        $params = [$this->enrolId];
+        $userSections = $this->db->get_records_sql($sql, $params);
+
+        $arrShowed = [];
+        foreach ($userSections as $data) {
+            $arrShowed[] = $data->sectionid;
+        }
+
+        $arrActives = [];
+        if (!empty($arrShowed)) {
+            $showed = false;
+            foreach ($concepts as $concept) {
+                if (in_array($concept->sectionid, $arrShowed)) {
+                    $arrActives[] = $concept->sectiontheme;
+                    $showed = true;
+                } elseif ($showed) {
+                    $arrActives[] = $concept->sectiontheme;
+                    break;
+                }
+            }
+        }
+
+        $response = [
+            'path' => $urlCourse['path'],
+            'sections' => $concepts,
+            'activar' => $arrActives
+        ];
+
+        return json_encode($response);
     }
-    
+
+    private function getYmlCourse($nameCourse) {
+        $nameAux = str_replace(' ', '', $nameCourse);
+        $name = mb_strtolower($nameAux, 'UTF-8');
+        $chars = ['á' => 'a', 'é' => 'e', 'í' => 'i', 'ó' => 'o', 'ú' => 'u', 'ü' => 'u', 'ñ' => 'n'];
+        $newName = strtr($name, $chars);
+        $array = Spyc::YAMLLoad('Resources/config/courses.yml');
+
+        return $array[$newName];
+    }
 }
-
-

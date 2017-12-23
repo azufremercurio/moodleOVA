@@ -16,4 +16,4 @@
 /set/user/course/sections:
     class: Curso
     action: getSectionsCourses
-    method: GET
+    method: POST

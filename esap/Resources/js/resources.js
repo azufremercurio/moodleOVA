@@ -28,8 +28,8 @@ $(document).ready(function () {
         },
         getSectionsByUser: function () {
             var data = {
-                url: '/esap/app.dev/user/course/sections',
-                data: {idCourse: 2},
+                url: '/esap/app.php/set/user/course/sections',
+                data: {idCourse: load.courseId},
                 callback: function (result) {
                     load.loadOvaBySection(result);
                 }
@@ -41,14 +41,16 @@ $(document).ready(function () {
              * observar los <li> con #section- de manera que
              * se consulte el <div> con clase .buttons-content
              */
-            $.each(result, function (index, item) {
-                var liPropId = "#section-" + item.code;
+            var count = 1;
+            $.each(result.sections, function (index, item) {
+                var liPropId = "#section-" + item.sectiontheme;
                 var content = $(liPropId).find('.buttons-content');
 
                 if ($(content).length > 0) {
-                    var btn = $('<a href="' + result.url + '">');
-                    $(btn).addClass('courseUnity btn btn-primary').html(result.text);
-                    $(item).append(btn);
+                    var btn = $('<a href="' + result.path + '?id=' + count + '">');
+                    $(btn).addClass('courseUnity btn btn-primary').html(item.title);
+                    $(content).append(btn);
+                    count++;
                 }
             });
         },

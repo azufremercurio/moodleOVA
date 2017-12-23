@@ -4,5 +4,8 @@
 # en la base de datos en la tabla 'course' se almacena 'fullname'
 # de este atributo se saca el nombre sin espacios
 
+informaticabasica:
+    path: esap/course/informaticaBasica
+
 seguridaddelainformacion:
     path: esap/course/seguridadInformatica
