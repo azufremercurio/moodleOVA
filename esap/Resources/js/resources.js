@@ -19,12 +19,12 @@ function fxloadm() {
 }
 
 $(document).ready(function () {
-    var load = loadSections;
+
     var loadSections = {
         courseId: 0,
         init: function () {
-            load = $(this);
             load.courseId = load.getCourseId('id');
+            load.getSectionsByUser();
         },
         getSectionsByUser: function () {
             var data = {
@@ -87,5 +87,6 @@ $(document).ready(function () {
         }
     };
 
-    loadSections.init();
+    var load = loadSections;
+    load.init();
 });

@@ -1,5 +1,7 @@
 <?php
 
+use Spyc;
+
 /**
  * Description of Test
  *
@@ -12,11 +14,13 @@ class Curso {
      * @var object
      */
     private $db;
+
     /**
      * entidad del usuario logeado
      * @var array
      */
     private $user;
+
     /**
      * primary key del user_enroll
      * @var integer
@@ -104,6 +108,14 @@ class Curso {
         $id = $this->db->insert_record('esp_user_section', $record, true);
 
         return json_encode(['msn' => '__OK__', 'return' => 'registro exitoso', 'data' => ['id' => $id]]);
+    }
+
+    private function getYmlCourse($nameCourse) {
+        $nameAux = str_replace(' ', '', $nameCourse);
+        $name = mb_strtolower($nameAux, 'UTF-8');
+        $chars = ['á' => 'a', 'é' => 'e', 'í' => 'i', 'ó' => 'o', 'ú' => 'u', 'ü' => 'u', 'ñ' => 'n'];
+        $newName = strtr($name, $chars);
+        return $newName;
     }
 
     private function issetRegist($request) {

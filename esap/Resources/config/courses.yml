@@ -1,0 +1,8 @@
+## Atributos de los cursos dentro del proyecto
+
+# el formato es el siguiente
+# en la base de datos en la tabla 'course' se almacena 'fullname'
+# de este atributo se saca el nombre sin espacios
+
+seguridaddelainformacion:
+    path: esap/course/seguridadInformatica
