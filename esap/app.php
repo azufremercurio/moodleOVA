@@ -1,42 +1,55 @@
 <?php
 
 require_once '../config.php';
+require_once 'Libraries/spyc/spyc.php';
 
 require_login();
 
-$method = $_SERVER['REQUEST_METHOD'];
+$rqMethod = $_SERVER['REQUEST_METHOD'];
 $urlActual = $_SERVER['REQUEST_URI'];
-$appUrl = explode('app.php', $urlActual);
 
-if(count($appUrl) == 1) {
-    return;
+$routGet = explode('?', $urlActual);
+
+$appUrl = explode('app.php', $routGet[0]);
+
+if (count($appUrl) == 1) {
+    throw new Exception('There is not a valid route');
 }
 
 $callResource = $appUrl[1];
 
-$arrRoutings = [
-    '/test' => ['Curso', 'index'],
-    '/testx' => ['Curso', 'index2'],
-];
+$arrRoutings = Spyc::YAMLLoad('routing.yml'); 
 
-if(!array_key_exists($callResource, $arrRoutings)){
-    die("Ruta no encontrada");
-    return;
+if (!array_key_exists($callResource, $arrRoutings)) {
+    throw new Exception('There is not a valid route');
 }
 
 $arrPath = $arrRoutings[$callResource];
 
-$class = $arrPath[0];
-$action = $arrPath[1];
+$class = $arrPath['class'];
+$action = $arrPath['action'];
+$method = 'GET';
+
+if (array_key_exists('method', $arrPath)) {
+    $method = $arrPath['method'];
+}
 
 require_once "Controller/$class.php";
 $objClass = new $class;
 
 $data = [];
-if($method == 'POST') {
-    $data = $_POST;
-} elseif ($method == 'GET') {
-    $data = $_GET;
+/* validar si el prametro es POST para observar el contenido */
+if ($rqMethod != 'POST' && $method == 'POST') {
+    throw new Exception('Method type are different');
 }
 
-echo $objClass->{$action."Action"}($data);
+if ($rqMethod == 'POST' && $method == 'POST') {
+    /* obtener todos los valores del post */
+    $data = $_POST;
+    if (empty($data)) {
+        throw new Exception('Params are void');
+    }
+} elseif ($rqMethod == 'GET') {
+    $data = $_GET;
+}
+echo $objClass->{$action . "Action"}($data);
