@@ -124,5 +124,25 @@ class Curso {
         }
         return false;
     }
-
+    
+    public function getSectionsCoursesAction($request){
+        
+       $cursos  = $this->db->get_records('course_sections', ['course' => $request['idCourse']]);
+       
+       foreach ($cursos as $course) {
+           
+          print_r($course->section);
+       }
+//    print_r($cursos);
+       
+       $sql="";
+       
+       
+       
+        
+        return;
+    }
+    
 }
+
+
