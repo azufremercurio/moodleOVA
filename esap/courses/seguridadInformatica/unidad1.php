@@ -20,7 +20,7 @@
             </div>
 
             <div class="concept cursorClick" id="concept1" concept="1" data-toggle="modal" data-target="#myModal">
-                <img src="<?php echo $resourcesRoot; ?>/multimedia/satelite.gif">
+                <img class="objmultimedia" objName="img001" src="<?php echo $resourcesRoot; ?>/multimedia/satelite.gif">
             </div>
             <div class="concept cursorClick hide" id="concept2" concept="2" data-toggle="modal" data-target="#myModal">
                 <img src="<?php echo $resourcesRoot; ?>/multimedia/radio.gif">

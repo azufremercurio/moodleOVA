@@ -3,7 +3,7 @@
  * Funciones generales y globales usadas en el proyecto
  */
 
-var loadm = {
+var app = {
     ajax: function (params) {
 
         var type = 'post';
@@ -30,6 +30,23 @@ var loadm = {
                 }
             }
         });
+    },
+    events: function() {
+        $('#loadUnity').on('click', '.objmultimedia', function(){
+            var objName = $(this).attr('objName');
+            myApp.registResource(objName);
+        });
+        
+    },
+    registResource: function(objName){
+        var params = {
+            url: '/esap/app.php/set/user/resource',
+            data: {objName: objName},
+            callback: function(data){
+                console.log(data);
+            }
+        };
+        myApp.ajax(params);
     }
 };
-
+var myApp = app;

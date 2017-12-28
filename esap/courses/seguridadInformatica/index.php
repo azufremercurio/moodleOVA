@@ -28,12 +28,18 @@ if (empty($id)) {
 
         <script src="<?php echo $resourcesRoot; ?>/js/jquery-3.2.1.min.js"></script>
         <script src="<?php echo $resourcesRoot; ?>/js/bootstrap.min.js"></script>
-        <script src="/esap/courses/seguridadInformatica/js/vista.js"></script>
+        <script src="js/vista.js"></script>
+        <script src="../../Resources/js/app.js"></script>
 
         <script language=javascript>
             var urls = {
                 unityid: '<?php echo "/esap/courses/seguridadInformatica/unidad$id.php"; ?>'
-            }
+            };
+            
+            $(document).ready(function(){
+                var appx = app;
+                appx.events();
+            });
         </script>
 
     </body>

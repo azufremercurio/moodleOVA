@@ -67,19 +67,36 @@ class Curso {
      */
     public function setUserResourceAction($request) {
         /* validacion de parametros */
-        if (!isset($request['resourceId']) || empty($request['resourceId'])) {
+        if(!isset($request['objName']) || empty($request['objName'])) {
             return json_encode(['msn' => '__KO__', 'return' => 'parametros incompletos']);
         }
+
+        /* consultar el id del recurso mediante nombre */
+        $resource = $this->getConceptResourceByName($request['objName']);
+
+        if(empty($resource)) {
+            return json_encode(['msn' => '__KO__', 'return' => 'el recurso no se encontro']);
+        }
+
+        $request['resourceId'] = $resource->id;
 
         if ($this->issetRegist($request)) {
             return json_encode(['msn' => '__OK__', 'return' => 'el registro ya existe']);
         }
+
         /* obtener el id del usuario para almacenarlo en la tabla de recursos vistos */
         $record = new stdClass();
-
         $record->user_enrolments_id = $this->enrolId;
-        $record->concept_resource_id = $request['resourceId'];
-        $id = $this->db->insert_record('esp_user_concept_resource', $record, true);
+        $record->concept_resource_id = $resource->id;
+        $record->score = $resource->score;
+
+        try {
+            $id = $this->db->insert_record('esp_user_concept_resource', $record, true);
+        } catch (Exception $exc) {
+            echo $exc->getMessage();
+            die;
+        }
+
 
         return json_encode(['msn' => '__OK__', 'return' => 'registro exitoso', 'data' => ['id' => $id]]);
     }
@@ -183,5 +200,21 @@ class Curso {
         $array = Spyc::YAMLLoad('Resources/config/courses.yml');
 
         return $array[$newName];
+    }
+    
+    /**
+     * obtener el concepto recurso por medio del nombre del ercurso
+     * @param string $objName
+     * @return stdClass
+     */
+    private function getConceptResourceByName($objName) {
+        $sql = "SELECT cr.id, cr.concept_id, cr.resource_id, r.score "
+                . "FROM {esp_concept_resource} AS cr "
+                . "JOIN {esp_resource} AS r ON r.id = cr.resource_id "
+                . "WHERE r.name = ?";
+        $param = [$objName];
+
+        $resource = $this->db->get_record_sql($sql, $param);
+        return $resource;
     }
 }
