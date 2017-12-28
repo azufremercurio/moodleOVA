@@ -5,7 +5,7 @@
 # de este atributo se saca el nombre sin espacios
 
 informaticabasica:
-    path: esap/course/informaticaBasica
+    path: /esap/courses/seguridadInformatica
 
 seguridaddelainformacion:
-    path: esap/course/seguridadInformatica
+    path: /esap/courses/seguridadInformatica
