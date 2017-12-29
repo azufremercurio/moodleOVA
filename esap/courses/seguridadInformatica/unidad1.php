@@ -29,7 +29,7 @@
                 <img src="<?php echo $resourcesRoot; ?>/multimedia/televisor.gif">
             </div>
             <div class="concept cursorClick hide" id="concept4" concept="4" data-toggle="modal" data-target="#myModal">
-                <img src="<?php echo $resourcesRoot; ?>/multimedia/engranaje.gif">
+                <img class="objActivity" src="<?php echo $resourcesRoot; ?>/multimedia/engranaje.gif">
             </div>
         </div>
 

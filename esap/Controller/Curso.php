@@ -67,14 +67,14 @@ class Curso {
      */
     public function setUserResourceAction($request) {
         /* validacion de parametros */
-        if(!isset($request['objName']) || empty($request['objName'])) {
+        if (!isset($request['objName']) || empty($request['objName'])) {
             return json_encode(['msn' => '__KO__', 'return' => 'parametros incompletos']);
         }
 
         /* consultar el id del recurso mediante nombre */
         $resource = $this->getConceptResourceByName($request['objName']);
 
-        if(empty($resource)) {
+        if (empty($resource)) {
             return json_encode(['msn' => '__KO__', 'return' => 'el recurso no se encontro']);
         }
 
@@ -96,7 +96,6 @@ class Curso {
             echo $exc->getMessage();
             die;
         }
-
 
         return json_encode(['msn' => '__OK__', 'return' => 'registro exitoso', 'data' => ['id' => $id]]);
     }
@@ -150,7 +149,7 @@ class Curso {
         /* obtener el curso */
         $course = $this->db->get_record('course', ['id' => $request['idCourse']]);
         $urlCourse = $this->getYmlCourse($course->fullname);
-        
+
         /* obtener los conceptos de las secciones y de ahi sacar el titulo de los botones */
         $sql = "SELECT ec.*, cs.id as sectionId, cs.section as sectionTheme "
                 . "FROM {course_sections} as cs "
@@ -202,7 +201,7 @@ class Curso {
 
         return $array[$newName];
     }
-    
+
     /**
      * obtener el concepto recurso por medio del nombre del ercurso
      * @param string $objName
@@ -218,4 +217,5 @@ class Curso {
         $resource = $this->db->get_record_sql($sql, $param);
         return $resource;
     }
+
 }

@@ -36,12 +36,25 @@ var app = {
             var objName = $(this).attr('objName');
             myApp.registResource(objName);
         });
+        $('#loadUnity').on('click', '.objActivity', function(){
+            myApp.registSection(sectionUnity);
+        });
         
     },
     registResource: function(objName){
         var params = {
             url: '/esap/app.php/set/user/resource',
             data: {objName: objName},
+            callback: function(data){
+                console.log(data);
+            }
+        };
+        myApp.ajax(params);
+    },
+    registSection: function(sectionId){
+        var params = {
+            url: '/esap/app.php/set/user/section',
+            data: {sectionId: sectionId},
             callback: function(data){
                 console.log(data);
             }

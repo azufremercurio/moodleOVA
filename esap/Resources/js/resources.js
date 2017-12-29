@@ -1,11 +1,11 @@
 
 function fxloadm() {
 //    $('.buttons-content').load('/esap/courses/seguridadInformatica/proteccionDatos/index.php?id=1');
-
+    
     var btn1 = $('<a>');
     var btn2 = $('<a>');
     var btn3 = $('<a>');
-
+            
     $(btn1).html('Protección de datos').addClass('courseUnity btn btn-primary')
             .prop({href: '/esap/courses/seguridadInformatica/proteccionDatos/?id=1', disabled: true});
     $(btn2).html('Encriptación de datos').addClass('courseUnity btn btn-primary')
