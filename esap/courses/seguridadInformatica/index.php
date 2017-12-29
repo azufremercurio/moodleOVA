@@ -3,6 +3,7 @@
 require_once '../../config.php';
 
 $id = optional_param('id', 0, PARAM_INT);
+$unity = optional_param('unity', 0, PARAM_INT);
 
 if (empty($id)) {
     /* si no existe un id del programa se vuelve a la pagian anterior */
@@ -35,6 +36,7 @@ if (empty($id)) {
             var urls = {
                 unityid: '<?php echo "/esap/courses/seguridadInformatica/unidad$id.php"; ?>'
             };
+            var sectionUnity = '<?php echo $unity; ?>';
             
             $(document).ready(function(){
                 var appx = app;

@@ -25,6 +25,7 @@ $(document).ready(function () {
         init: function () {
             load.courseId = load.getCourseId('id');
             load.getSectionsByUser();
+            load.loadEvents();
         },
         getSectionsByUser: function () {
             var data = {
@@ -36,6 +37,17 @@ $(document).ready(function () {
             };
             load.ajax(data);
         },
+        loadEvents: function() {
+            $('body').on('click', '.courseUnity', function() {
+                var form = $('<form>').prop({action: $(this).attr('url'), method: 'GET'});
+                var inputHdId = $('<input type="hidden">').prop({name:'id'}).val($(this).attr('page'));
+                var inputHdUnity = $('<input type="hidden">').prop({name:'unity'}).val($(this).attr('unity'));
+
+                $(form).append(inputHdId, inputHdUnity);
+                $('body').append(form);
+                $(form).submit();
+            });
+        },
         loadOvaBySection: function (result) {
             /*
              * observar los <li> con #section- de manera que
@@ -45,10 +57,10 @@ $(document).ready(function () {
             $.each(result.sections, function (index, item) {
                 var liPropId = "#section-" + item.sectiontheme;
                 var content = $(liPropId).find('.buttons-content');
-
                 if ($(content).length > 0) {
-                    var btn = $('<a href="' + result.path + '?id=' + count + '">');
+                    var btn = $('<a href="javascript:">');
                     $(btn).addClass('courseUnity btn btn-primary').html(item.title);
+                    $(btn).attr({page:count, unity: item.sectionid, url: result.path});
                     $(content).append(btn);
                     count++;
                 }

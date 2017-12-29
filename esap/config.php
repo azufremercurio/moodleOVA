@@ -37,3 +37,9 @@ $urlPath = getUrlPath();
 $programsRoot = "$urlPath/esap/courses";
 $resourcesRoot = "$urlPath/esap/Resources";
 
+
+$arrParams = [];
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $arrParams = $_POST;
+}
+

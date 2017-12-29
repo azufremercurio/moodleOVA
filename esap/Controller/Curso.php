@@ -152,9 +152,10 @@ class Curso {
         $urlCourse = $this->getYmlCourse($course->fullname);
         
         /* obtener los conceptos de las secciones y de ahi sacar el titulo de los botones */
-        $sql = "select ec.*, cs.id as sectionId, cs.section as sectionTheme FROM {course_sections} as cs "
-                . "join {esp_concept} as ec on ec.course_sections = cs.id "
-                . "where cs.course = ?";
+        $sql = "SELECT ec.*, cs.id as sectionId, cs.section as sectionTheme "
+                . "FROM {course_sections} as cs "
+                . "JOIN {esp_concept} as ec on ec.course_sections = cs.id "
+                . "WHERE cs.course = ?";
         $params = [$request['idCourse']];
         $concepts = $this->db->get_records_sql($sql, $params);
 
