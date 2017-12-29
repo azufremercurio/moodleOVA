@@ -1,4 +1,4 @@
-<?php require_once '../../config.php'; ?>
+<?php require_once '../../../config.php'; ?>
 <!-- Recurso correspondiente a la Proteccion de Datos -->
 
 <div class="col-sm-12">
@@ -20,7 +20,7 @@
             </div>
 
             <div class="concept cursorClick" id="concept1" concept="1" data-toggle="modal" data-target="#myModal">
-                <img class="objmultimedia" objName="img001" src="<?php echo $resourcesRoot; ?>/multimedia/satelite.gif">
+                <img src="<?php echo $resourcesRoot; ?>/multimedia/satelite.gif">
             </div>
             <div class="concept cursorClick hide" id="concept2" concept="2" data-toggle="modal" data-target="#myModal">
                 <img src="<?php echo $resourcesRoot; ?>/multimedia/radio.gif">
@@ -29,7 +29,7 @@
                 <img src="<?php echo $resourcesRoot; ?>/multimedia/televisor.gif">
             </div>
             <div class="concept cursorClick hide" id="concept4" concept="4" data-toggle="modal" data-target="#myModal">
-                <img class="objActivity" src="<?php echo $resourcesRoot; ?>/multimedia/engranaje.gif" sectionId='<?php echo $unity ?>'>
+                <img src="<?php echo $resourcesRoot; ?>/multimedia/engranaje.gif">
             </div>
         </div>
 

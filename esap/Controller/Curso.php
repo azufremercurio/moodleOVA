@@ -1,7 +1,5 @@
 <?php
 
-use Spyc;
-
 /**
  * Description of Test
  *
@@ -14,13 +12,11 @@ class Curso {
      * @var object
      */
     private $db;
-
     /**
      * entidad del usuario logeado
      * @var array
      */
     private $user;
-
     /**
      * primary key del user_enroll
      * @var integer
@@ -46,7 +42,7 @@ class Curso {
      * @return stdClass tipo userEnrollment
      */
     private function getUserEnrolment() {
-        $userEnrol = $this->db->get_record('user_enrolments', ['userid' => $this->user->id]);
+        $userEnrol = $this->db->get_records('user_enrolments', ['userid' => $this->user->id]);
         return $userEnrol;
     }
 
@@ -67,36 +63,19 @@ class Curso {
      */
     public function setUserResourceAction($request) {
         /* validacion de parametros */
-        if(!isset($request['objName']) || empty($request['objName'])) {
+        if (!isset($request['resourceId']) || empty($request['resourceId'])) {
             return json_encode(['msn' => '__KO__', 'return' => 'parametros incompletos']);
         }
-
-        /* consultar el id del recurso mediante nombre */
-        $resource = $this->getConceptResourceByName($request['objName']);
-
-        if(empty($resource)) {
-            return json_encode(['msn' => '__KO__', 'return' => 'el recurso no se encontro']);
-        }
-
-        $request['resourceId'] = $resource->id;
 
         if ($this->issetRegist($request)) {
             return json_encode(['msn' => '__OK__', 'return' => 'el registro ya existe']);
         }
-
         /* obtener el id del usuario para almacenarlo en la tabla de recursos vistos */
         $record = new stdClass();
+
         $record->user_enrolments_id = $this->enrolId;
-        $record->concept_resource_id = $resource->id;
-        $record->score = $resource->score;
-
-        try {
-            $id = $this->db->insert_record('esp_user_concept_resource', $record, true);
-        } catch (Exception $exc) {
-            echo $exc->getMessage();
-            die;
-        }
-
+        $record->concept_resource_id = $request['resourceId'];
+        $id = $this->db->insert_record('esp_user_concept_resource', $record, true);
 
         return json_encode(['msn' => '__OK__', 'return' => 'registro exitoso', 'data' => ['id' => $id]]);
     }
@@ -146,75 +125,4 @@ class Curso {
         return false;
     }
 
-    public function getSectionsCoursesAction($request) {
-        /* obtener el curso */
-        $course = $this->db->get_record('course', ['id' => $request['idCourse']]);
-        $urlCourse = $this->getYmlCourse($course->fullname);
-        
-        /* obtener los conceptos de las secciones y de ahi sacar el titulo de los botones */
-        $sql = "select ec.*, cs.id as sectionId, cs.section as sectionTheme FROM {course_sections} as cs "
-                . "join {esp_concept} as ec on ec.course_sections = cs.id "
-                . "where cs.course = ?";
-        $params = [$request['idCourse']];
-        $concepts = $this->db->get_records_sql($sql, $params);
-
-        /* obtener las secciones vistas por el usuario */
-        $sql = "select us.course_sections_id as sectionId FROM {esp_user_section} as us "
-                . "where us.user_enrolments_id = ?";
-        $params = [$this->enrolId];
-        $userSections = $this->db->get_records_sql($sql, $params);
-
-        $arrShowed = [];
-        foreach ($userSections as $data) {
-            $arrShowed[] = $data->sectionid;
-        }
-
-        $arrActives = [];
-        if (!empty($arrShowed)) {
-            $showed = false;
-            foreach ($concepts as $concept) {
-                if (in_array($concept->sectionid, $arrShowed)) {
-                    $arrActives[] = $concept->sectiontheme;
-                    $showed = true;
-                } elseif ($showed) {
-                    $arrActives[] = $concept->sectiontheme;
-                    break;
-                }
-            }
-        }
-
-        $response = [
-            'path' => $urlCourse['path'],
-            'sections' => $concepts,
-            'activar' => $arrActives
-        ];
-
-        return json_encode($response);
-    }
-
-    private function getYmlCourse($nameCourse) {
-        $nameAux = str_replace(' ', '', $nameCourse);
-        $name = mb_strtolower($nameAux, 'UTF-8');
-        $chars = ['á' => 'a', 'é' => 'e', 'í' => 'i', 'ó' => 'o', 'ú' => 'u', 'ü' => 'u', 'ñ' => 'n'];
-        $newName = strtr($name, $chars);
-        $array = Spyc::YAMLLoad('Resources/config/courses.yml');
-
-        return $array[$newName];
-    }
-    
-    /**
-     * obtener el concepto recurso por medio del nombre del ercurso
-     * @param string $objName
-     * @return stdClass
-     */
-    private function getConceptResourceByName($objName) {
-        $sql = "SELECT cr.id, cr.concept_id, cr.resource_id, r.score "
-                . "FROM {esp_concept_resource} AS cr "
-                . "JOIN {esp_resource} AS r ON r.id = cr.resource_id "
-                . "WHERE r.name = ?";
-        $param = [$objName];
-
-        $resource = $this->db->get_record_sql($sql, $param);
-        return $resource;
-    }
 }
