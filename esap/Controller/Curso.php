@@ -218,4 +218,21 @@ class Curso {
         return $resource;
     }
 
+    public function getCoursesByNameAction($request) {
+        $sql = "SELECT co.fullname as value, co.id as id "
+                ."FROM {course} AS co "
+                ."WHERE co.fullname LIKE ? LIMIT 10";
+        
+        $params = ["%$request[name]%"];
+        
+        $result = $this->db->get_records_sql($sql, $params);        
+
+        $values=[];
+        foreach ($result as $res){
+            $values[] = ['value' => $res->value, 'id' => $res->id ];
+        }
+
+        return json_encode($values);
+    }
+
 }
