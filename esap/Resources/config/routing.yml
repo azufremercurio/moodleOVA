@@ -17,3 +17,8 @@
     class: Curso
     action: getSectionsCourses
     method: POST
+
+/get/courses/like/name:
+    class: Curso
+    action: getCoursesByName
+    method: POST
