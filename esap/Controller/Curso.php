@@ -222,7 +222,7 @@ class Curso {
         $sql = "SELECT co.fullname as value, co.id as id "
                 ."FROM {course} AS co "
                 ."WHERE co.fullname LIKE ? LIMIT 10";
-        
+
         $params = ["%$request[name]%"];
         
         $result = $this->db->get_records_sql($sql, $params);        
