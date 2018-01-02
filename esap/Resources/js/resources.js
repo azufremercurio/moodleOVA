@@ -103,4 +103,3 @@ $(document).ready(function () {
     var load = loadSections;
     load.init();
 });
-
