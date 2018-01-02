@@ -1,4 +1,3 @@
-
 function fxloadm() {
 //    $('.buttons-content').load('/esap/courses/seguridadInformatica/proteccionDatos/index.php?id=1');
     
@@ -60,7 +59,7 @@ $(document).ready(function () {
                 if ($(content).length > 0) {
                     var btn = $('<a href="javascript:">');
                     $(btn).addClass('courseUnity btn btn-primary').html(item.title);
-                    $(btn).attr({page:count, unity: item.sectionid, url: result.path});
+                    $(btn).attr({page:count, unity: item.timename, url: result.path});
                     $(content).append(btn);
                     count++;
                 }
@@ -104,3 +103,4 @@ $(document).ready(function () {
     var load = loadSections;
     load.init();
 });
+
