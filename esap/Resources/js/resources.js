@@ -1,4 +1,3 @@
-
 function fxloadm() {
 //    $('.buttons-content').load('/esap/courses/seguridadInformatica/proteccionDatos/index.php?id=1');
     
@@ -104,3 +103,4 @@ $(document).ready(function () {
     var load = loadSections;
     load.init();
 });
+
