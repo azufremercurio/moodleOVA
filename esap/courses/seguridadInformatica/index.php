@@ -1,46 +1,49 @@
+
 <?php
-/*
- * Listar las unidades del curso
- * Las unidades se desbloquean segun el avance del usuario en las actividades
- */
-
 require_once '../../config.php';
+
+$id = optional_param('id', 0, PARAM_INT);
+$unity = optional_param('unity', 0, PARAM_INT);
+
+if (empty($id)) {
+    /* si no existe un id del programa se vuelve a la pagian anterior */
+    header('Location: /');
+    return;
+}
+
 ?>
+
 <!DOCTYPE html>
-<html lang="es">
+<html>
     <head>
-        <title>ESAP-Programas</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <!-- inclusion de las hojas de estilo -->
-        <link rel="stylesheet" href="../../Resources/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../../Resources/css/mine.css">
-        <link rel="stylesheet" href="../../Resources/css/jquery-ui.min.css">
-
+        <meta http-equiv="Content-Language" content="es">
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+        <title>Pagina nueva 2</title>
+        <link href="<?php echo $resourcesRoot; ?>/css/bootstrap.min.css" rel="stylesheet">
+        <link href="<?php echo $resourcesRoot; ?>/css/mine.css" rel="stylesheet">
+        <link href="/esap/courses/seguridadInformatica/css/styles.css" rel="stylesheet">
     </head>
+
     <body>
-        <header>
-            <div class="col-sm-12">Juan Dominguez</div>
-        </header>
-        <section>
-            <div class="container">
-                <h1>Bienvenido al curso de Seguridad Informática</h1>
-                <div class="row">
-                    <div class="col-sm-12">Estas son los Objetos Virtuales de Apendizaje de debes aprobar</div>
-                </div>
-                
-                <div class="col-xs-12 col-sm-3 tagPost"><a href="proteccionDatos/?id=1">Protección de datos</a></div>
-                <div class="col-xs-12 col-sm-3 tagPost"><a href="proteccionDatos/?id=2">Encriptación de datos</a></div>
-                <div class="col-xs-12 col-sm-3 tagPost"><a href="proteccionDatos/?id=3">Analisis de vulnerabilidad</a></div>
-            </div>
-        </section>
-        <footer>
+        <div id="loadUnity"></div>
 
-        </footer>
+        <script src="<?php echo $resourcesRoot; ?>/js/jquery-3.2.1.min.js"></script>
+        <script src="<?php echo $resourcesRoot; ?>/js/bootstrap.min.js"></script>
+        <script src="js/vista.js"></script>
+        <script src="../../Resources/js/app.js"></script>
 
-        <script src="../../Resources/js/jquery-3.2.1.min.js"></script>
-        <script src="../../Resources/js/bootstrap.min.js"></script>
-        <script src="../../Resources/js/jquery-ui.min.js"></script>
+        <script language=javascript>
+            var urls = {
+                unityid: '<?php echo "/esap/courses/seguridadInformatica/unidad$id.php"; ?>'
+            };
+            var sectionUnity = '<?php echo $unity; ?>';
+            
+            $(document).ready(function(){
+                var appx = app;
+                appx.events();
+            });
+        </script>
+
     </body>
+
 </html>

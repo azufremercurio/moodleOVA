@@ -1,34 +1,3 @@
-
-var loadm = {
-    ajax: function (params) {
-
-        var type = 'get';
-        var data = {};
-        var dataType = 'json';
-        if (params.type) {
-            type = params.type;
-        }
-        if (params.data) {
-            data = params.data;
-        }
-        if (params.dataType) {
-            dataType = params.dataType;
-        }
-
-        $.ajax({
-            type: type,
-            url: params.url,
-            data: data,
-            dataType: dataType,
-            success: function (data, textStatus, jqXHR) {
-                if (params.callback) {
-                    params.callback(data);
-                }
-            }
-        });
-    }
-};
-
 function fxloadm() {
 //    $('.buttons-content').load('/esap/courses/seguridadInformatica/proteccionDatos/index.php?id=1');
     
@@ -47,3 +16,91 @@ function fxloadm() {
     $('.buttons-content').append(btn2);
     $('.buttons-content').append(btn3);
 }
+
+$(document).ready(function () {
+
+    var loadSections = {
+        courseId: 0,
+        init: function () {
+            load.courseId = load.getCourseId('id');
+            load.getSectionsByUser();
+            load.loadEvents();
+        },
+        getSectionsByUser: function () {
+            var data = {
+                url: '/esap/app.php/set/user/course/sections',
+                data: {idCourse: load.courseId},
+                callback: function (result) {
+                    load.loadOvaBySection(result);
+                }
+            };
+            load.ajax(data);
+        },
+        loadEvents: function() {
+            $('body').on('click', '.courseUnity', function() {
+                var form = $('<form>').prop({action: $(this).attr('url'), method: 'GET'});
+                var inputHdId = $('<input type="hidden">').prop({name:'id'}).val($(this).attr('page'));
+                var inputHdUnity = $('<input type="hidden">').prop({name:'unity'}).val($(this).attr('unity'));
+
+                $(form).append(inputHdId, inputHdUnity);
+                $('body').append(form);
+                $(form).submit();
+            });
+        },
+        loadOvaBySection: function (result) {
+            /*
+             * observar los <li> con #section- de manera que
+             * se consulte el <div> con clase .buttons-content
+             */
+            var count = 1;
+            $.each(result.sections, function (index, item) {
+                var liPropId = "#section-" + item.sectiontheme;
+                var content = $(liPropId).find('.buttons-content');
+                if ($(content).length > 0) {
+                    var btn = $('<a href="javascript:">');
+                    $(btn).addClass('courseUnity btn btn-primary').html(item.title);
+                    $(btn).attr({page:count, unity: item.timename, url: result.path});
+                    $(content).append(btn);
+                    count++;
+                }
+            });
+        },
+        getCourseId: function (param) {
+            var strUrl = window.location;
+            var url = new URL(strUrl);
+            var urlSearchParams = url.searchParams;
+            return urlSearchParams.get(param);
+        },
+        ajax: function (params) {
+
+            var type = 'post';
+            var data = {};
+            var dataType = 'json';
+            if (params.type) {
+                type = params.type;
+            }
+            if (params.data) {
+                data = params.data;
+            }
+            if (params.dataType) {
+                dataType = params.dataType;
+            }
+
+            $.ajax({
+                type: type,
+                url: params.url,
+                data: data,
+                dataType: dataType,
+                success: function (data, textStatus, jqXHR) {
+                    if (params.callback) {
+                        params.callback(data);
+                    }
+                }
+            });
+        }
+    };
+
+    var load = loadSections;
+    load.init();
+});
+

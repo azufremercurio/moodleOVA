@@ -18,7 +18,7 @@ if (count($appUrl) == 1) {
 
 $callResource = $appUrl[1];
 
-$arrRoutings = Spyc::YAMLLoad('routing.yml'); 
+$arrRoutings = Spyc::YAMLLoad('Resources/config/routing.yml'); 
 
 if (!array_key_exists($callResource, $arrRoutings)) {
     throw new Exception('There is not a valid route');
@@ -52,4 +52,6 @@ if ($rqMethod == 'POST' && $method == 'POST') {
 } elseif ($rqMethod == 'GET') {
     $data = $_GET;
 }
+
 echo $objClass->{$action . "Action"}($data);
+

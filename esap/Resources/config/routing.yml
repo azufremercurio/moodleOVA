@@ -12,3 +12,8 @@
     class: Curso
     action: setUserResource
     method: POST
+
+/set/user/course/sections:
+    class: Curso
+    action: getSectionsCourses
+    method: POST
