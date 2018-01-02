@@ -93,8 +93,7 @@ class Curso {
         try {
             $id = $this->db->insert_record('esp_user_concept_resource', $record, true);
         } catch (Exception $exc) {
-            echo $exc->getMessage();
-            die;
+            return $exc->getMessage();
         }
 
         return json_encode(['msn' => '__OK__', 'return' => 'registro exitoso', 'data' => ['id' => $id]]);
