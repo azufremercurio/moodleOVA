@@ -52,4 +52,6 @@ if ($rqMethod == 'POST' && $method == 'POST') {
 } elseif ($rqMethod == 'GET') {
     $data = $_GET;
 }
+
 echo $objClass->{$action . "Action"}($data);
+

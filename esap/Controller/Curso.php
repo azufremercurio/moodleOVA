@@ -103,8 +103,8 @@ class Curso {
     /**
      * insterta un registro en la tabla Usersection 
      * esta recive como parametro el id de la seccion
-     * @param type $request
-     * @return type
+     * @param array $request
+     * @return json
      */
     public function setUserSectionAction($request) {
         /* preguntar si section id esta vacion */
@@ -117,10 +117,18 @@ class Curso {
         }
 
         /* obtener el id del usuario para almacenarlo en la tabla de recursos vistos */
-        $record = new stdClass();
+        $date = date('Y-m-d H:i:s', $request['sectionId']);
+        $concept = $this->db->get_record('esp_concept', ['timename' => $date]);
 
+        /* validar que el concepto exista para evitar fraudes */
+        if (empty($concept)) {
+            return json_encode(['msn' => '__KO__', 'return' => 'la actividad no existe']);
+        }
+
+        $record = new stdClass();
         $record->user_enrolments_id = $this->enrolId;
-        $record->course_sections_id = $request['sectionId'];
+        $record->course_sections_id = $concept->course_sections;
+
         $id = $this->db->insert_record('esp_user_section', $record, true);
 
         return json_encode(['msn' => '__OK__', 'return' => 'registro exitoso', 'data' => ['id' => $id]]);
@@ -129,33 +137,46 @@ class Curso {
     private function issetRegist($request) {
         $regist = null;
         if (array_key_exists('sectionId', $request)) {
-            $regist = $this->db->get_records('esp_user_section', [
-                'course_sections_id' => $request['sectionId'],
+            /* obtener el concept mediante fecha unica y con esto consultar el user_concept_section */
+            $date = date('Y-m-d H:i:s', $request['sectionId']);
+            $concept = $this->db->get_record('esp_concept', ['timename' => $date]);
+            $regist = $this->db->get_record('esp_user_section', [
+                'course_sections_id' => $concept->course_sections,
                 'user_enrolments_id' => $this->enrolId
             ]);
+
         } elseif (array_key_exists('resourceId', $request)) {
-            $regist = $this->db->get_records('esp_user_concept_resource', ['concept_resource_id' => $request['resourceId'],
+            $regist = $this->db->get_records('esp_user_concept_resource', [
+                'concept_resource_id' => $request['resourceId'],
                 'user_enrolments_id' => $this->enrolId
             ]);
         }
 
-        if (!empty($regist)) {
-            return true;
+        if (empty($regist)) {
+            return false;
         }
-        return false;
+        return true;
     }
 
+    /**
+     * Obtener los datos necesarios para crear los botones y mostrar el OVA
+     * @param array $request
+     * @return json
+     */
     public function getSectionsCoursesAction($request) {
+
         /* obtener el curso */
         $course = $this->db->get_record('course', ['id' => $request['idCourse']]);
         $urlCourse = $this->getYmlCourse($course->fullname);
 
         /* obtener los conceptos de las secciones y de ahi sacar el titulo de los botones */
-        $sql = "SELECT ec.*, cs.id as sectionId, cs.section as sectionTheme "
+        $sql = "SELECT ec.id, ec.description, ec.title, ec.course_sections, "
+                . "UNIX_TIMESTAMP(ec.timename) AS timename, cs.id as sectionId, cs.section as sectionTheme "
                 . "FROM {course_sections} as cs "
                 . "JOIN {esp_concept} as ec on ec.course_sections = cs.id "
                 . "WHERE cs.course = ?";
         $params = [$request['idCourse']];
+
         $concepts = $this->db->get_records_sql($sql, $params);
 
         /* obtener las secciones vistas por el usuario */
